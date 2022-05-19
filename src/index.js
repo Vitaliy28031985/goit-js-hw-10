@@ -82,8 +82,8 @@ if (countrysLength === 1) {
  })
  .catch(error => {
    Notify.failure('Oops, there is no country with that name');
-   refs.countryInfo.innerHTML = '';
-   refs.countryList.innerHTML = '';
+   countryInfo.innerHTML = '';
+   countryList.innerHTML = '';
    return error;
  });
 
