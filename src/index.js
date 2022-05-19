@@ -67,12 +67,12 @@ console.log(countrysLength);
       return;
     }
 
-    if (countrysLength <= countrysLengthNorm && countrysLength > 1) {
+    if (countrysLength <= countrysLengthNorm) {
       const listMarkup = countrys.map(country => countryListMarkup(country)).join('');
       refs.list.innerHTML = listMarkup;
       refs.info.innerHTML = '';
       console.log(refs.list);
-return;
+
     }
 
 if (countrysLength === 1) {
