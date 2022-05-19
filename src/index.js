@@ -5,11 +5,9 @@ import debounce from 'lodash.throttle';
 
 const DEBOUNCE_DELAY = 300;
 
-const refs = {
-input: document.querySelector('#search-box'),
-list: document.querySelectorAll('.country-list'),
-info: document.querySelector('.country-info'),
-}
+const input = document.querySelector('#search-box');
+const list = document.querySelector('.country-list');
+const info = document.querySelector('.country-info');
 
 // функції для рендеру розмітки
 
@@ -40,17 +38,17 @@ function countryCardMarkap({ flags, name, capital, population, languages }) {
 
  // формування запиту
 
-refs.input.addEventListener('input', debounce(onTaype, DEBOUNCE_DELAY));
+input.addEventListener('input', debounce(onTaype, DEBOUNCE_DELAY));
 
 
 
 function onTaype() {
- const onValue = refs.input.value.trim();
+ const onValue = input.value.trim();
  
  
  if (onValue === '') {
-  refs.list.innerHTML = '';
-  refs.info.innerHTML = '';
+  list.innerHTML = '';
+  info.innerHTML = '';
   return;  
  }
 
@@ -58,27 +56,27 @@ function onTaype() {
  .then(countrys => {
    const countrysLength = countrys.length;
    const countrysLengthNorm = 10;
-console.log(countrysLength);
+
 
     if (countrysLength > countrysLengthNorm) {
       Notify.info('Too many matches found. Please enter a more specific name.');
-      refs.list.innerHTML = '';
-      refs.info.innerHTML = '';
+      list.innerHTML = '';
+      info.innerHTML = '';
       return;
     }
 
-    if (countrysLength <= countrysLengthNorm) {
-      const listMarkup = countrys.map(country => countryListMarkup(country)).join('');
-      refs.list.innerHTML = listMarkup;
-      refs.info.innerHTML = '';
-      console.log(refs.list);
+    if (countrysLength <= countrysLengthNorm && countrysLength > 1) {
+      const listMarkup = countrys.map(country => countryListMarkup(country));
+      list.innerHTML = listMarkup.join('');
+      info.innerHTML = '';
+    
 
     }
 
 if (countrysLength === 1) {
    const cardMarkap = countrys.map(country => countryCardMarkap(country));
-   refs.list.innerHTML = '';
-   refs.info.innerHTML = cardMarkap.join('');
+   list.innerHTML = '';
+   info.innerHTML = cardMarkap.join('');
  
 }
  })
@@ -88,5 +86,5 @@ if (countrysLength === 1) {
    refs.countryList.innerHTML = '';
    return error;
  });
- console.log(refs.list);
+
 }
