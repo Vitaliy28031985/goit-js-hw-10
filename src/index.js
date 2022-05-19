@@ -45,7 +45,7 @@ refs.input.addEventListener('input', debounce(onTaype, DEBOUNCE_DELAY));
 
 
 function onTaype() {
- const onValue = refs.input.value;
+ const onValue = refs.input.value.trim();
  
  
  if (onValue === '') {
@@ -67,11 +67,12 @@ console.log(countrysLength);
       return;
     }
 
-   if (countrysLength <= countrysLengthNorm) {
+    if (countrysLength <= countrysLengthNorm && countrysLength > 1) {
       const listMarkup = countrys.map(country => countryListMarkup(country)).join('');
       refs.list.innerHTML = listMarkup;
       refs.info.innerHTML = '';
       console.log(refs.list);
+return;
     }
 
 if (countrysLength === 1) {
